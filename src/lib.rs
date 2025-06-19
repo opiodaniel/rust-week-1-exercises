@@ -1,9 +1,8 @@
 // Implement extract_tx_version function below
 pub fn extract_tx_version(raw_tx_hex: &str) -> Result<u32, String> {
-
     // Make sure the hex string is at least 8 characters (4 bytes)
     if raw_tx_hex.len() < 8 {
-    return Err("Transaction data too short".to_string());
+        return Err("Transaction data too short".to_string());
     }
 
     // Take the first 8 characters which represent 4 bytes
@@ -14,10 +13,9 @@ pub fn extract_tx_version(raw_tx_hex: &str) -> Result<u32, String> {
     for i in 0..4 {
         let start = i * 2;
         let byte_str = &version_hex[start..start + 2];
-        bytes[i] = u8::from_str_radix(byte_str, 16)
-            .map_err(|e| format!("Hex decode error: {}", e))?;
+        bytes[i] =
+            u8::from_str_radix(byte_str, 16).map_err(|e| format!("Hex decode error: {}", e))?;
     }
-
 
     // Convert from little-endian byte array to u32
     let version = u32::from_le_bytes(bytes);
